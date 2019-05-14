@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.entity.Coach;
 import com.example.demo.entity.Course;
 import com.example.demo.entity.User;
+import com.example.demo.entity.Userinfo;
 import com.example.demo.service.CoachService;
 import com.example.demo.service.CourseService;
+import com.example.demo.service.UserInfoService;
 import com.example.demo.service.UserService;
 
 @Controller
@@ -23,10 +25,15 @@ public class GymController {
 	public void setCourseservice(CourseService courseservice) {
 		this.courseservice = courseservice;
 	}
+	private UserInfoService userinfoservice;
+	@Autowired
+	public void setUserInfoservice(UserInfoService userinfoservice) {
+		this.userinfoservice = userinfoservice;
+	}
 	
 	private CoachService coachservice;
 	@Autowired
-	public void setUserservice(CoachService coachservice) {
+	public void setCoachservice(CoachService coachservice) {
 		this.coachservice = coachservice;
 	}
 	
@@ -35,6 +42,10 @@ public class GymController {
 	private String course(Map<String, Object> map) {
 		List<Course> course = courseservice.getAllCourse();
 		map.put("courses", course);
+		List<Course> mycourses = userinfoservice.getUserInfoByUsername("123").getCourses();
+		map.put("mycourses", mycourses);
+//		System.out.println("here");
+//		System.out.println(userinfoservice.getUserInfoByUsername("123").getTelephone());
 		return "/gym/course";
 	}
 	

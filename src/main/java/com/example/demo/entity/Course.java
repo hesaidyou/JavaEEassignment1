@@ -4,17 +4,19 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
+//@Table(name = "course",schema="springbootcrud")
 public class Course {
 	@Id
 	private String courseid;
 	private String coursename;
 	
-	@ManyToMany(mappedBy = "courses", cascade = CascadeType.PERSIST)
-	private List<User> users;
+	@ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)//mappedBy = "courses", 
+	//private List<Userinfo> userinfo;
 	
 
 	public String getCourseid() {
@@ -29,11 +31,12 @@ public class Course {
 	public void setCoursename(String coursename) {
 		this.coursename = coursename;
 	}
+//	public List<Userinfo> getUserinfos() {
+//		return userinfo;
+//	}
+//	public void setUserInfos(List<Userinfo> userinfos) {
+//		this.userinfo = userinfos;
+//	}
 	
-	public List<User> getUsers() {
-		return users;
-	}
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
+
 }
